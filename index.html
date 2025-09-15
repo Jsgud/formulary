@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fórmulas de Matemáticas Financieras</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+            overflow-x: auto;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 15px 20px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #6c757d;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            min-width: 150px;
+        }
+
+        .tab-button:hover {
+            background: #e9ecef;
+            color: #495057;
+        }
+
+        .tab-button.active {
+            background: #007bff;
+            color: white;
+            box-shadow: 0 2px 10px rgba(0, 123, 255, 0.3);
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .formula-section {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #007bff;
+        }
+
+        .formula-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .formula-title::before {
+            content: "📊";
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .formula-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e9ecef;
+        }
+
+        .formula-math {
+            font-size: 1.3rem;
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+        }
+
+        .variables {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #ffc107;
+        }
+
+        .variables h4 {
+            color: #856404;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .variables ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .variables li {
+            margin: 5px 0;
+            color: #856404;
+            font-weight: 500;
+        }
+
+        .variables li strong {
+            color: #495057;
+            margin-right: 5px;
+        }
+
+        .example-box {
+            background: #d4edda;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid #28a745;
+        }
+
+        .example-title {
+            font-weight: 700;
+            color: #155724;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .calculator-section {
+            background: linear-gradient(145deg, #e3f2fd, #bbdefb);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+            border-left: 5px solid #2196f3;
+        }
+
+        .input-group {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .input-group label {
+            font-weight: 600;
+            color: #1565c0;
+            min-width: 120px;
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #90caf9;
+            border-radius: 8px;
+            font-size: 1rem;
+            min-width: 150px;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #2196f3;
+            box-shadow: 0 0 10px rgba(33, 150, 243, 0.3);
+        }
+
+        .calculate-btn {
+            background: linear-gradient(145deg, #2196f3, #1976d2);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.4);
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(33, 150, 243, 0.6);
+        }
+
+        .result-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #4caf50;
+        }
+
+        .result-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2e7d32;
+            text-align: center;
+        }
+
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #007bff, transparent);
+            margin: 30px 0;
+            border-radius: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .input-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .input-group label {
+                min-width: auto;
+            }
+            
+            .tab-button {
+                min-width: 120px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📈 Matemáticas Financieras</h1>
+            <p>Fórmulas interactivas con calculadoras integradas</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="tab-button active" onclick="showTab('simple')">Interés Simple</button>
+            <button class="tab-button" onclick="showTab('compound')">Interés Compuesto</button>
+            <button class="tab-button" onclick="showTab('rates')">Conversión de Tasas</button>
+            <button class="tab-button" onclick="showTab('continuous')">Capitalización Continua</button>
+        </div>
+
+        <div class="content">
+            <!-- INTERÉS SIMPLE -->
+            <div id="simple" class="tab-content active">
+                <div class="formula-section">
+                    <div class="formula-title">Monto con Interés Simple</div>
+                    <div class="formula-box">
+                        <div class="formula-math">
+                            $$M_n = C_0(1 + n \times i)$$
+                        </div>
+                        <div class="variables">
+                            <h4>Donde:</h4>
+                            <ul>
+                                <li><strong>M<sub>n</sub>:</strong> Monto al período n</li>
+                                <li><strong>C<sub>0</sub>:</strong> Capital inicial</li>
+                                <li><strong>n:</strong> Número de períodos</li>
+                                <li><strong>i:</strong> Tasa de interés por período</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="calculator-section">
+                        <h3>🧮 Calculadora de Interés Simple</h3>
+                        <div class="input-group">
+                            <label>Capital Inicial:</label>
+                            <input type="number" id="capital-simple" placeholder="10000">
+                        </div>
+                        <div class="input-group">
+                            <label>Tasa (%):</label>
+                            <input type="number" id="tasa-simple" placeholder="5" step="0.01">
+                        </div>
+                        <div class="input-group">
+                            <label>Períodos:</label>
+                            <input type="number" id="periodos-simple" placeholder="3">
+                        </div>
+                        <button class="calculate-btn" onclick="calculateSimple()">Calcular Monto</button>
+                        <div id="result-simple" class="result-box" style="display: none;">
+                            <div class="result-value"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <div class="formula-section">
+                    <div class="formula-title">Cálculo de Capital Inicial</div>
+                    <div class="formula-box">
+                        <div class="formula-math">
+                            $$C_0 = \frac{M_n}{1 + n \times i}$$
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formula-section">
+                    <div class="formula-title">Cálculo del Tiempo</div>
+                    <div class="formula-box">
+                        <div class="formula-math">
+                            $$n = \frac{M_n/C_0 - 1}{i}$$
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formula-section">
+                    <div class="formula-title">Cálculo de la Tasa</div>
+                    <div class="formula-box">
+                        <div class="formula-math">
+                            $$i = \frac{M_n/C_0 - 1}{n}$$
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INTERÉS COMPUESTO -->
+            <div id="compound" class="tab-content">
+                <div class="formula-section">
+                    <div class="formula-title">Monto con Interés Compuesto</div>
+                    <div class="formula-box">
+                        <div class="formula-math">
+                            $$M = C(1 + i)^n$$
+                        </div>
+                        <div class="variables">
+                            <h4>Donde:</h4>
+                            <ul>
+                                <li><strong>M:</strong> Monto o valor futuro</li>
+                                <li><strong>C:</strong> Capital o valor actual</li>
+                                <li><strong>i:</strong> Tasa de interés efectiva</li>
+                                <li><strong>n:</strong> Número de períodos</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="calculator-section">
+                        <h3>🧮 Calculadora de Interés Compuesto</h3>
+                        <div class="input-group">
+                            <label>Capital Inicial:</label>
+                            <input type="number" id="capital-compound" placeholder="100">
+                        </div>
+                        <div class="input-group">
+                            <label>Tasa (%):</label>
+                            <input type="number" id="tasa-compound" placeholder="5" step="0.01">
+                        </div>
+                        <div class="input-group">
+                            <label>Períodos:</label>
+                            <input type="number" id="periodos-compound" placeholder="6">
+                        </div>
+                        <button class="calculate-btn" onclick="calculateCompound()">Calcular Monto</button>
+                        <div id="result-compound" class="result-box" style="display: none;">
+                            <div class="result-value"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <div class="formula-section">
+                    <div class="formula-title">Valor Actual</div>
+                    <div class="formula-box">
+                        <div class="formula-math">
+                            $$VA = \frac{FC}{(1 + i)^n}$$
+                        </div>
+                        <div class="variables">
+                            <h4>Donde:</h4>
+                            <ul>
+                                <li><strong>VA:</strong> Valor Actual</li>
+                                <li><strong>FC:</strong> Flujo de Caja futuro</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formula-section">
+                    <div class="formula-title">Valor Actual Neto (VAN)</div>
+                    <div class="formula-box">
+                        <div class="formula-math">
+                            $$VAN = \sum_{t=1}^{n} \frac{FC_t}{(1 + i)^t} - I_0$$
+                        </div>
+                        <div class="variables">
+                            <h4>Criterios de Decisión:</h4>
+                            <ul>
+                                <li><strong>VAN > 0:</strong> La inversión conviene ✅</li>
+                                <li><strong>VAN = 0:</strong> La inversión es indiferente ⚖️</li>
+                                <li><strong>VAN < 0:</strong> La inversión no conviene ❌</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONVERSIÓN DE TASAS -->
+            <div id="rates" class="tab-content">
+                <div class="formula-section">
+                    <div class="formula-title">De Tasa Nominal a Tasa Efectiva</div>
+                    <div class="formula-box">
+                        <div class="formula-math">
+                            $$i = \left(1 + \frac{j}{m}\right)^m - 1$$
+                        </div>
+                        <div class="variables">
+                            <h4>Donde:</h4>
+                            <ul>
+                                <li><strong>i:</strong> Tasa efectiva anual</li>
+                                <li><strong>j:</strong> Tasa nominal anual</li>
+                                <li><strong>m:</strong> Número de capitalizaciones al año</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="calculator-section">
+                        <h3>🧮 Conversión de Tasas</h3>
+                        <div class="input-group">
+                            <label>Tasa Nominal (%):</label>
+                            <input type="number" id="nominal-rate" placeholder="12" step="0.01">
+                        </div>
+                        <div class="input-group">
+                            <label>Capitalizaciones/año:</label>
+                            <input type="number" id="capitalizations" placeholder="12">
+                        </div>
+                        <button class="calculate-btn" onclick="calculateEffective()">Calcular Tasa Efectiva</button>
+                        <div id="result-rates" class="result-box" style="display: none;">
+                            <div class="result-value"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <div class="formula-section">
+                    <div class="formula-title">Tasa Efectiva por Período</div>
+                    <div class="formula-box">
+                        <div class="formula-math">
+                            $$i_{periodo} = \frac{j}{m}$$
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formula-section">
+                    <div class="formula-title">Tasas Equivalentes</div>
+                    <div class="formula-box">
+                        <div class="formula-math">
+                            $$(1 + i_1)^{n_1} = (1 + i_2)^{n_2}$$
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CAPITALIZACIÓN CONTINUA -->
+            <div id="continuous" class="tab-content">
+                <div class="formula-section">
+                    <div class="formula-title">Monto con Capitalización Continua</div>
+                    <div class="formula-box">
+                        <div class="formula-math">
+                            $$M = C \times e^{r \times t}$$
+                        </div>
+                        <div class="variables">
+                            <h4>Donde:</h4>
+                            <ul>
+                                <li><strong>M:</strong> Monto final</li>
+                                <li><strong>C:</strong> Capital inicial</li>
+                                <li><strong>e:</strong> Número de Euler (≈ 2.71828)</li>
+                                <li><strong>r:</strong> Tasa nominal anual</li>
+                                <li><strong>t:</strong> Tiempo en años</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="calculator-section">
+                        <h3>🧮 Calculadora de Capitalización Continua</h3>
+                        <div class="input-group">
+                            <label>Capital Inicial:</label>
+                            <input type="number" id="capital-continuous" placeholder="32000">
+                        </div>
+                        <div class="input-group">
+                            <label>Tasa (%):</label>
+                            <input type="number" id="tasa-continuous" placeholder="9" step="0.01">
+                        </div>
+                        <div class="input-group">
+                            <label>Tiempo (años):</label>
+                            <input type="number" id="tiempo-continuous" placeholder="2.5" step="0.1">
+                        </div>
+                        <button class="calculate-btn" onclick="calculateContinuous()">Calcular Monto</button>
+                        <div id="result-continuous" class="result-box" style="display: none;">
+                            <div class="result-value"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <div class="formula-section">
+                    <div class="formula-title">Valor Presente con Capitalización Continua</div>
+                    <div class="formula-box">
+                        <div class="formula-math">
+                            $$C = M \times e^{-r \times t}$$
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuración de MathJax
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+
+        // Función para cambiar pestañas
+        function showTab(tabName) {
+            // Ocultar todas las pestañas
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Remover clase active de todos los botones
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+            
+            // Mostrar la pestaña seleccionada
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+            
+            // Re-renderizar MathJax
+            setTimeout(() => {
+                MathJax.typesetPromise();
+            }, 100);
+        }
+
+        // Calculadora de Interés Simple
+        function calculateSimple() {
+            const capital = parseFloat(document.getElementById('capital-simple').value);
+            const tasa = parseFloat(document.getElementById('tasa-simple').value) / 100;
+            const periodos = parseFloat(document.getElementById('periodos-simple').value);
+            
+            if (!capital || !tasa || !periodos) {
+                alert('Por favor, complete todos los campos');
+                return;
+            }
+            
+            const monto = capital * (1 + periodos * tasa);
+            const interes = monto - capital;
+            
+            const resultDiv = document.getElementById('result-simple');
+            const resultValue = resultDiv.querySelector('.result-value');
+            
+            resultValue.innerHTML = `
+                <strong>Monto Final:</strong> $${monto.toLocaleString('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2})}<br>
+                <strong>Interés Ganado:</strong> $${interes.toLocaleString('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+            `;
+            resultDiv.style.display = 'block';
+        }
+
+        // Calculadora de Interés Compuesto
+        function calculateCompound() {
+            const capital = parseFloat(document.getElementById('capital-compound').value);
+            const tasa = parseFloat(document.getElementById('tasa-compound').value) / 100;
+            const periodos = parseFloat(document.getElementById('periodos-compound').value);
+            
+            if (!capital || !tasa || !periodos) {
+                alert('Por favor, complete todos los campos');
+                return;
+            }
+            
+            const monto = capital * Math.pow(1 + tasa, periodos);
+            const interes = monto - capital;
+            
+            const resultDiv = document.getElementById('result-compound');
+            const resultValue = resultDiv.querySelector('.result-value');
+            
+            resultValue.innerHTML = `
+                <strong>Monto Final:</strong> $${monto.toLocaleString('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2})}<br>
+                <strong>Interés Ganado:</strong> $${interes.toLocaleString('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+            `;
+            resultDiv.style.display = 'block';
+        }
+
+        // Calculadora de Conversión de Tasas
+        function calculateEffective() {
+            const nominal = parseFloat(document.getElementById('nominal-rate').value) / 100;
+            const m = parseFloat(document.getElementById('capitalizations').value);
+            
+            if (!nominal || !m) {
+                alert('Por favor, complete todos los campos');
+                return;
+            }
+            
+            const efectiva = Math.pow(1 + nominal/m, m) - 1;
+            const efectivaPorcentaje = efectiva * 100;
+            
+            const resultDiv = document.getElementById('result-rates');
+            const resultValue = resultDiv.querySelector('.result-value');
+            
+            resultValue.innerHTML = `
+                <strong>Tasa Efectiva Anual:</strong> ${efectivaPorcentaje.toFixed(4)}%<br>
+                <strong>Tasa por Período:</strong> ${(nominal/m * 100).toFixed(4)}%
+            `;
+            resultDiv.style.display = 'block';
+        }
+
+        // Calculadora de Capitalización Continua
+        function calculateContinuous() {
+            const capital = parseFloat(document.getElementById('capital-continuous').value);
+            const tasa = parseFloat(document.getElementById('tasa-continuous').value) / 100;
+            const tiempo = parseFloat(document.getElementById('tiempo-continuous').value);
+            
+            if (!capital || !tasa || !tiempo) {
+                alert('Por favor, complete todos los campos');
+                return;
+            }
+            
+            const monto = capital * Math.exp(tasa * tiempo);
+            const interes = monto - capital;
+            
+            const resultDiv = document.getElementById('result-continuous');
+            const resultValue = resultDiv.querySelector('.result-value');
+            
+            resultValue.innerHTML = `
+                <strong>Monto Final:</strong> $${monto.toLocaleString('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2})}<br>
+                <strong>Interés Ganado:</strong> $${interes.toLocaleString('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+            `;
+            resultDiv.style.display = 'block';
+        }
+
+        // Inicializar cuando la página y MathJax estén listos
+        document.addEventListener('DOMContentLoaded', function() {
+            // Esperar a que MathJax esté completamente cargado
+            setTimeout(() => {
+                if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+                    MathJax.typesetPromise();
+                } else if (typeof MathJax !== 'undefined' && MathJax.Hub) {
+                    MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+                }
+            }, 500);
+        });
+    </script>
+</body>
+</html>
